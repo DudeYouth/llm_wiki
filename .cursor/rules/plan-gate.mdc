@@ -1,0 +1,14 @@
+---
+description: 先 Plan 后 Agent 的执行门禁
+alwaysApply: true
+---
+
+# Plan Gate
+
+- 每个需求在进入执行前，必须先在 Plan 模式产出方案并落盘到 `raw/`，且满足下列 **A 或 B（二选一）**。
+- **A. 方案总簿（推荐）**：在 `raw/plan-log.md` 末尾（或约定位置）**新增一节**，二级标题格式建议 `## YYYY-MM-DD — 需求关键词`。在该节标题下、正文最前放置一个 **fenced `yaml` 代码块**，其中须含 `status: approved` **或** `ready_for_execute: true`（可含 `owner`、`scope` 等）。执行 Agent 前须自检：**当前任务仅对应已含上述批准字段的那一节**。
+- **B. 兼容旧规范（过渡期）**：仍可使用独立文件 `raw/YYYY-MM-DD_需求关键词.md`，且文件 **YAML frontmatter** 中含 `status: approved` 或 `ready_for_execute: true`。
+- **总簿文件顶部**可有唯一 YAML frontmatter（如 `schema_version`）；**不得以**整文件单一 `status` 代表所有历史章节均已批准。
+- 未满足 A 或 B 时，不允许执行会修改项目状态的操作（写文件、执行命令、删除、补丁等）。
+- 若被拦截，先补齐或更新 `raw/plan-log.md` 对应节（或独立方案文件），再继续 Agent 执行。
+- **与 llmwiki**：`ingest_source` 以**单文件路径**为宜；**不要**将整本 `plan-log.md` 作为默认 ingest 源。需编译进 wiki 的正文请使用独立 `raw/YYYY-MM-DD_*.md`（或与总簿节内容一致的单文件副本），详见知识库 SKILL。

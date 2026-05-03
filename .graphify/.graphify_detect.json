@@ -1,0 +1,33 @@
+{
+  "files": {
+    "code": [],
+    "document": [
+      "2026-05-01_graphify知识图谱接入.md"
+    ],
+    "paper": [],
+    "image": [],
+    "video": []
+  },
+  "total_files": 1,
+  "total_words": 149,
+  "needs_graph": false,
+  "warning": "Corpus is ~149 words - fits in a single context window. You may not need a graph.",
+  "skipped_sensitive": [],
+  "graphifyignore_patterns": 0,
+  "scope": {
+    "requested_mode": "all",
+    "resolved_mode": "all",
+    "source": "cli",
+    "root": ".",
+    "git_root": "..",
+    "head": "00831ad2a621d243f4b958b6d0ccc72dc3a4767d",
+    "candidate_count": null,
+    "included_count": 1,
+    "excluded_untracked_count": 0,
+    "excluded_ignored_count": 0,
+    "excluded_sensitive_count": 0,
+    "missing_committed_count": 0,
+    "warnings": [],
+    "recommendation": null
+  }
+}
