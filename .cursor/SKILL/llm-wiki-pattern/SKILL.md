@@ -1,6 +1,6 @@
 ---
 name: llm-wiki-pattern
-description: Use when building or maintaining a persistent agent-written markdown wiki, when defining wiki schema or AGENTS conventions, when running wiki health checks, when compounding knowledge instead of stateless RAG, when the user mentions Memex or second-brain wikis, multi-session wiki drift, RAG vs persistent wiki, or when the user references Karpathy LLM Wiki, raw/wiki/schema layering, index.md, log.md, wiki backfill, or Obsidian as the wiki reader. Also when the user mentions llmwiki MCP, ingest_source, compile_wiki, or wiki compile via MCP.
+description: Use when building or maintaining a persistent agent-written markdown wiki, when defining wiki schema or AGENTS conventions, when running wiki health checks, when compounding knowledge instead of stateless RAG, when the user mentions Memex or second-brain wikis, multi-session wiki drift, RAG vs persistent wiki, or when the user references Karpathy LLM Wiki, raw/wiki/schema layering, index.md, log.md, wiki backfill, or Obsidian as the wiki reader. Also when the user mentions llmwiki MCP, ingest_source, compile_wiki, or wiki compile via MCP. Also when the user mentions qmd, hybrid BM25-plus-vector search, LLM rerank over local Markdown, or wiki-level search beyond index.md.
 disable-model-invocation: true
 ---
 
@@ -213,7 +213,7 @@ disable-model-invocation: true
 
 ## Skill + qmd：衍生功能点（可选）
 
-本节在**不依赖其它 MCP** 的前提下，把本 skill 的 Query 纪律与 **qmd**（见上文「可选增强」）组合后的可落地能力点单列，便于写入项目 schema 或对外说明。
+本节在**不依赖其它 MCP** 的前提下，把本 skill 的 Query 纪律与 **qmd**（见上文「可选增强」）组合后的可落地能力点单列，便于写入项目 schema 或对外说明。**本组合**仅指 **Query 检索链**上的 `index`（与索引不足时的 **qmd**）；与上文 **「MCP 实现轮廓（可选）：llmwiki」** 为并列可选路径，互不替代。
 
 ### 流程骨架
 
@@ -224,13 +224,16 @@ flowchart LR
   read[打开候选页精读]
   answer[带引用作答]
   backfill[可选回写wiki]
-  log[更新index与log]
-  index --> qmd
+  logUpdate[更新index与log]
+  index -->|"索引不足"| qmd
+  index -->|"已能定位"| read
   qmd --> read
   read --> answer
   answer --> backfill
-  backfill --> log
+  backfill --> logUpdate
 ```
+
+与 **Query 检查清单**一致：**index 已能定位相关页时不必调用 qmd**，直接打开候选页精读即可。
 
 ### 1. 路由与分层检索
 
